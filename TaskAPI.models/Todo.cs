@@ -10,5 +10,9 @@
 
         public TodoStatus Status { get; set;} //new, inprogress , completed
 
+        public int AuthorId { get; set; }
+
+        public Author Author { get; set; }
+
     }
 }
