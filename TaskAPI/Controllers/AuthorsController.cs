@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.ObjectModel;
+using TaskAPI.Models;
 using TaskAPI.Services.Authors;
 using TaskAPI.Services.Models;
 
@@ -22,20 +23,13 @@ namespace TaskAPI.Controllers
         [HttpGet]
         public ActionResult<Collection<AuthorDto>> GetAuthors()
         {
+            throw new Exception("Test Eroor");
             var authors = _service.GetAllAuthors();
             var authorsDto = new List<AuthorDto>();
 
-            foreach (var author in authors)
-            {
-                authorsDto.Add(new AuthorDto
-                    {
-                    Id = author.Id,
-                    FullName = author.FullName,
-                        Address = $"{author.AddressNo}, {author.Street} , {author.City}"
-                });
-            }
+         var mappedAuthors = _mapper.Map<ICollection<AuthorDto>>(authors);
 
-            return Ok(authorsDto);
+            return Ok(mappedAuthors);
         }
 
         [HttpGet("{id}")]
@@ -48,7 +42,10 @@ namespace TaskAPI.Controllers
                 return NotFound();
             }
 
-            return Ok(author);
+            var mappedAuthor = _mapper.Map<AuthorDto>(author);
+
+
+            return Ok(mappedAuthor);
         }
 
     }
