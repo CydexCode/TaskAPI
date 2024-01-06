@@ -15,6 +15,7 @@ builder.Services.AddControllers(options =>
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());    
 
 builder.Services.AddScoped<ITodoRepository, TodoSqlServerService>();
 builder.Services.AddScoped<IAuthorRepository, AuthorSqlServerService>();

@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.ObjectModel;
 using TaskAPI.Services.Authors;
+using TaskAPI.Services.Models;
 
 namespace TaskAPI.Controllers
 {
@@ -9,16 +12,30 @@ namespace TaskAPI.Controllers
     public class AuthorsController : ControllerBase
     {
         private readonly IAuthorRepository _service;
-        public AuthorsController(IAuthorRepository service)
+        private readonly IMapper _mapper;
+        public AuthorsController(IAuthorRepository service,IMapper mapper)
         {
             _service = service;
+            _mapper = mapper;
         }
 
         [HttpGet]
-        public IActionResult GetAuthors()
+        public ActionResult<Collection<AuthorDto>> GetAuthors()
         {
             var authors = _service.GetAllAuthors();
-            return Ok(authors);
+            var authorsDto = new List<AuthorDto>();
+
+            foreach (var author in authors)
+            {
+                authorsDto.Add(new AuthorDto
+                    {
+                    Id = author.Id,
+                    FullName = author.FullName,
+                        Address = $"{author.AddressNo}, {author.Street} , {author.City}"
+                });
+            }
+
+            return Ok(authorsDto);
         }
 
         [HttpGet("{id}")]
