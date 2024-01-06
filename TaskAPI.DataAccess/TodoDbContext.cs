@@ -27,9 +27,9 @@ namespace TaskAPI.DataAccess
 
             modelBuilder.Entity<Author>().HasData(new Author[]
             {
-                new Author {Id=1,FullName="sachi buddhika"},
-                new Author {Id=2,FullName="smith Perera"},
-                new Author {Id=3,FullName="maxwell dek"}
+                new Author {Id=1,FullName="sachi buddhika",AddressNo="Address 1",Street="Street 1",City="colombo 1"},
+                new Author {Id=2,FullName="smith Perera",AddressNo="Address 2",Street="Street 2",City="colombo 2"},
+                new Author {Id=3,FullName="maxwell dek",AddressNo="Address 3",Street="Street 3",City="colombo 3"},
 
             });
 
